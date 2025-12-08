@@ -231,44 +231,47 @@ export class KeroKeroTrigger implements INodeType {
                 }
             },
 
-            const credentials = await this.getCredentials('kerokeroApi');
+            async create(this: IHookFunctions): Promise<boolean> {
+                const webhookUrl = this.getNodeWebhookUrl('default') as string;
+                const instanceName = this.getNodeParameter('instanceName', '') as string;
+                const credentials = await this.getCredentials('kerokeroApi');
 
-            try {
-                await this.helpers.httpRequest({
-                    method: 'POST',
-                    url: `${credentials.apiUrl}/instances/${instanceName}/webhook`,
-                    body: {
-                        url: webhookUrl,
-                    },
-                    json: true,
-                });
+                try {
+                    await this.helpers.httpRequest({
+                        method: 'POST',
+                        url: `${credentials.apiUrl}/instances/${instanceName}/webhook`,
+                        body: {
+                            url: webhookUrl,
+                        },
+                        json: true,
+                    });
 
-                return true;
-            } catch(error) {
-                throw new Error(`Failed to register webhook: ${error}`);
-            }
+                    return true;
+                } catch(error) {
+                    throw new Error(`Failed to register webhook: ${error}`);
+                }
+            },
+
+            async delete(this: IHookFunctions): Promise<boolean> {
+                const instanceName = this.getNodeParameter('instanceName', '') as string;
+                const credentials = await this.getCredentials('kerokeroApi');
+
+                try {
+                    await this.helpers.httpRequest({
+                        method: 'DELETE',
+                        url: `${credentials.apiUrl}/instances/${instanceName}/webhook`,
+                        headers: {
+                            Authorization: `Bearer ${credentials.apiKey}`,
+                        },
+                        json: true,
+                    });
+
+                    return true;
+                } catch {
+                    return false;
+                }
+            },
         },
-
-        async delete(this: IHookFunctions): Promise<boolean> {
-            const instanceName = this.getNodeParameter('instanceName', '') as string;
-            const credentials = await this.getCredentials('kerokeroApi');
-
-            try {
-                await this.helpers.httpRequest({
-                    method: 'DELETE',
-                    url: `${credentials.apiUrl}/instances/${instanceName}/webhook`,
-                    headers: {
-                        Authorization: `Bearer ${credentials.apiKey}`,
-                    },
-                    json: true,
-                });
-
-                return true;
-            } catch {
-                return false;
-            }
-        },
-    };
 
     async webhook(this: IWebhookFunctions): Promise<IWebhookResponseData> {
         const bodyData = this.getBodyData();
