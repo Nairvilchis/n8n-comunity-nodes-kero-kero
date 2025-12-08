@@ -261,7 +261,7 @@ export class KeroKeroTrigger implements INodeType {
                         method: 'DELETE',
                         url: `${credentials.apiUrl}/instances/${instanceName}/webhook`,
                         headers: {
-                            Authorization: `Bearer ${credentials.apiKey}`,
+                            Authorization: `Bearer ${credentials.apiKey}`
                         },
                         json: true,
                     });
@@ -272,6 +272,7 @@ export class KeroKeroTrigger implements INodeType {
                 }
             },
         },
+    };
 
     async webhook(this: IWebhookFunctions): Promise<IWebhookResponseData> {
         const bodyData = this.getBodyData();

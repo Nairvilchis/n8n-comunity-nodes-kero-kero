@@ -237,11 +237,8 @@ export const instanceDescription: INodeProperties[] = [
         routing: {
             send: {
                 type: 'body',
-                property: 'webhook',
-                value: {
-                    url: '={{$parameter.webhookUrl}}',
-                    enabled: true,
-                },
+                property: 'webhookUrl',
+                value: '={{$parameter.webhookUrl}}'
             },
         },
     },
