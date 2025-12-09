@@ -1,7 +1,8 @@
 {
 	"name": "n8n-nodes-kerokero",
-	"version": "0.2.7",
+	"version": "0.2.8",
 	"description": "n8n community node for Kero-Kero WhatsApp API integration",
+	"main": "dist/package.json",
 	"license": "MIT",
 	"homepage": "https://github.com/Nairvilchis/kero-kero",
 	"keywords": [

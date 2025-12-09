@@ -5,10 +5,10 @@ import type {
     INodeProperties,
 } from 'n8n-workflow';
 
-export class WasasaApi implements ICredentialType {
+export class KeroKeroApi implements ICredentialType {
     name = 'kerokeroApi';
 
-    displayName = 'kerokero API';
+    displayName = 'KeroKero API';
 
     icon = 'file:kerokero.svg' as const;
 
@@ -21,7 +21,7 @@ export class WasasaApi implements ICredentialType {
             type: 'string',
             default: 'http://localhost:8080',
             placeholder: 'https://api.kerokero.com',
-            description: 'The base URL of your Wasasa API server',
+            description: 'The base URL of your KeroKero API server',
         },
         {
             displayName: 'API Key',
@@ -32,7 +32,7 @@ export class WasasaApi implements ICredentialType {
             },
             default: '',
             required: true,
-            description: 'Your Wasasa API key for authentication',
+            description: 'Your KeroKero API key for authentication',
         },
     ];
 
