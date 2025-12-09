@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-kerokero",
-	"version": "0.2.2",
+	"version": "0.2.5",
 	"description": "n8n community node for Kero-Kero WhatsApp API integration",
 	"license": "MIT",
 	"homepage": "https://github.com/Nairvilchis/kero-kero",
@@ -20,7 +20,7 @@
 		"url": "git+https://github.com/Nairvilchis/kero-kero.git"
 	},
 	"scripts": {
-		"build": "n8n-node build && javascript-obfuscator ./dist --output ./dist --compact true --self-defending true",
+		"build": "n8n-node build",
 		"build:watch": "tsc --watch",
 		"dev": "n8n-node dev",
 		"lint": "n8n-node lint",
@@ -41,14 +41,16 @@
 		]
 	},
 	"devDependencies": {
-		"@n8n/node-cli": "*",
+		"@n8n/node-cli": "^0.16.0",
 		"eslint": "9.32.0",
-		"javascript-obfuscator": "^4.1.0",
 		"prettier": "3.6.2",
 		"release-it": "^19.0.4",
 		"typescript": "5.9.2"
 	},
 	"peerDependencies": {
 		"n8n-workflow": "*"
+	},
+	"overrides": {
+		"change-case": "4.1.2"
 	}
 }
