@@ -1,5 +1,7 @@
 # n8n-nodes-kerokero
 
+[![License](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE.md)
+
 Este paquete contiene nodos comunitarios de n8n para integrar la funcionalidad de Kero-Kero (WhatsApp API).
 
 ## Nodos Incluidos
@@ -58,3 +60,8 @@ Una vez publicado, los usuarios pueden instalar el nodo desde la configuración 
 ```bash
 npm install n8n-nodes-kerokero
 ```
+```
+
+## Licencia
+
+Este proyecto está bajo la Licencia GPLv3 (GNU General Public License v3). Ver el archivo [LICENSE.md](LICENSE.md) para más detalles.

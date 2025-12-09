@@ -3,7 +3,7 @@
 	"version": "0.1.0",
 	"description": "n8n community node for Kero-Kero WhatsApp API integration",
 	"main": "dist/package.json",
-	"license": "MIT",
+	"license": "GPL-3.0",
 	"homepage": "https://github.com/Nairvilchis/kero-kero",
 	"keywords": [
 		"n8n-community-node-package",
