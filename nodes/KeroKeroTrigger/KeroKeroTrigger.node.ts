@@ -247,7 +247,7 @@ export class KeroKeroTrigger implements INodeType {
                     });
 
                     return true;
-                } catch(error) {
+                } catch (error) {
                     throw new Error(`Failed to register webhook: ${error}`);
                 }
             },
@@ -308,7 +308,7 @@ export class KeroKeroTrigger implements INodeType {
 
         // Filter by message type
         if (messageType !== 'any' && (event === 'message' || event === 'groupMessage')) {
-            const msgType = (bodyData as any)?.message?.type || (bodyData as any)?.messageType;
+            const msgType = (bodyData as any)?.data?.message_type || (bodyData as any)?.data?.messageType;
             if (msgType !== messageType) {
                 return { noWebhookResponse: true };
             }
@@ -316,7 +316,7 @@ export class KeroKeroTrigger implements INodeType {
 
         // Filter by sender number
         if (fromNumber && event === 'message') {
-            const from = (bodyData as any)?.from || (bodyData as any)?.sender;
+            const from = (bodyData as any)?.data?.from || (bodyData as any)?.from;
             if (!from?.includes(fromNumber)) {
                 return { noWebhookResponse: true };
             }
@@ -324,7 +324,7 @@ export class KeroKeroTrigger implements INodeType {
 
         // Filter by group ID
         if (groupId && event === 'groupMessage') {
-            const chatId = (bodyData as any)?.chatId || (bodyData as any)?.from;
+            const chatId = (bodyData as any)?.data?.from || (bodyData as any)?.data?.to;
             if (chatId !== groupId) {
                 return { noWebhookResponse: true };
             }

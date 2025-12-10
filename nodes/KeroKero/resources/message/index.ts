@@ -159,7 +159,7 @@ export const messageDescription: INodeProperties[] = [
         routing: {
             send: {
                 type: 'body',
-                property: 'number',
+                property: 'phone',
             },
         },
     },
@@ -183,7 +183,7 @@ export const messageDescription: INodeProperties[] = [
         routing: {
             send: {
                 type: 'body',
-                property: 'text',
+                property: 'message',
             },
         },
     },
@@ -205,7 +205,7 @@ export const messageDescription: INodeProperties[] = [
         routing: {
             send: {
                 type: 'body',
-                property: 'media',
+                property: 'media_url',
             },
         },
     },
@@ -247,7 +247,7 @@ export const messageDescription: INodeProperties[] = [
         routing: {
             send: {
                 type: 'body',
-                property: 'media',
+                property: 'media_url',
             },
         },
     },
@@ -289,7 +289,7 @@ export const messageDescription: INodeProperties[] = [
         routing: {
             send: {
                 type: 'body',
-                property: 'media',
+                property: 'media_url',
             },
         },
     },
@@ -310,7 +310,7 @@ export const messageDescription: INodeProperties[] = [
         routing: {
             send: {
                 type: 'body',
-                property: 'fileName',
+                property: 'file_name',
             },
         },
     },
@@ -352,7 +352,7 @@ export const messageDescription: INodeProperties[] = [
         routing: {
             send: {
                 type: 'body',
-                property: 'audio',
+                property: 'media_url',
             },
         },
     },
@@ -460,7 +460,7 @@ export const messageDescription: INodeProperties[] = [
         routing: {
             send: {
                 type: 'body',
-                property: 'displayName',
+                property: 'display_name',
             },
         },
     },
@@ -505,7 +505,7 @@ export const messageDescription: INodeProperties[] = [
         routing: {
             send: {
                 type: 'body',
-                property: 'name',
+                property: 'question',
             },
         },
     },
@@ -564,7 +564,7 @@ export const messageDescription: INodeProperties[] = [
         routing: {
             send: {
                 type: 'body',
-                property: 'selectCount',
+                property: 'selectable_count',
             },
         },
     },

@@ -121,6 +121,12 @@ export const chatDescription: INodeProperties[] = [
         default: '',
         placeholder: '1234567890@s.whatsapp.net',
         description: 'The JID of the chat (e.g., 1234567890@s.whatsapp.net)',
+        routing: {
+            send: {
+                type: 'body',
+                property: 'phone',
+            },
+        },
     },
     // Archive Status
     {

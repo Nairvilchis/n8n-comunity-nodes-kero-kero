@@ -129,7 +129,8 @@ export const instanceDescription: INodeProperties[] = [
         routing: {
             send: {
                 type: 'body',
-                property: 'instanceName',
+                property: 'instance_id',
+                value: '={{$parameter["instanceName"]}}',
             },
         },
     },
