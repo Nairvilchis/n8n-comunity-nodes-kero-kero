@@ -25,6 +25,18 @@ export const instanceDescription: INodeProperties[] = [
                 },
             },
             {
+                name: 'Connect',
+                value: 'connect',
+                description: 'Connect an instance to WhatsApp',
+                action: 'Connect instance',
+                routing: {
+                    request: {
+                        method: 'POST',
+                        url: '=/instances/{{$parameter["instanceName"]}}/connect',
+                    },
+                },
+            },
+            {
                 name: 'Delete',
                 value: 'delete',
                 description: 'Delete a WhatsApp instance',
@@ -134,6 +146,47 @@ export const instanceDescription: INodeProperties[] = [
             },
         },
     },
+    // Create operation - Webhook URL
+    {
+        displayName: 'Webhook URL',
+        name: 'webhookUrl',
+        type: 'string',
+        displayOptions: {
+            show: {
+                resource: ['instance'],
+                operation: ['create'],
+            },
+        },
+        default: '',
+        placeholder: 'https://your-webhook.com/webhook',
+        description: 'Optional webhook URL for receiving events from this instance',
+        routing: {
+            send: {
+                type: 'body',
+                property: 'webhook_url',
+            },
+        },
+    },
+    // Create operation - Sync History
+    {
+        displayName: 'Sync Chat History',
+        name: 'syncHistory',
+        type: 'boolean',
+        displayOptions: {
+            show: {
+                resource: ['instance'],
+                operation: ['create'],
+            },
+        },
+        default: false,
+        description: 'Whether to sync chat history when connecting the instance',
+        routing: {
+            send: {
+                type: 'body',
+                property: 'sync_history',
+            },
+        },
+    },
     // Get, Delete, GetQR, GetStatus, Logout operations
     {
         displayName: 'Instance Name',
@@ -143,7 +196,7 @@ export const instanceDescription: INodeProperties[] = [
         displayOptions: {
             show: {
                 resource: ['instance'],
-                operation: ['get', 'delete', 'getQR', 'getStatus', 'logout'],
+                operation: ['connect', 'get', 'delete', 'getQR', 'getStatus', 'logout'],
             },
         },
         default: '',
@@ -166,59 +219,22 @@ export const instanceDescription: INodeProperties[] = [
     },
     // Update Settings Fields
     {
-        displayName: 'Reject Calls',
-        name: 'rejectCalls',
-        type: 'boolean',
+        displayName: 'Instance Name',
+        name: 'name',
+        type: 'string',
         displayOptions: {
             show: {
                 resource: ['instance'],
                 operation: ['update'],
             },
         },
-        default: false,
-        description: 'Whether to automatically reject incoming calls',
+        default: '',
+        placeholder: 'My WhatsApp Instance',
+        description: 'Optional new name for the instance',
         routing: {
             send: {
                 type: 'body',
-                property: 'rejectCalls',
-            },
-        },
-    },
-    {
-        displayName: 'Always Online',
-        name: 'alwaysOnline',
-        type: 'boolean',
-        displayOptions: {
-            show: {
-                resource: ['instance'],
-                operation: ['update'],
-            },
-        },
-        default: false,
-        description: 'Whether to keep online status active',
-        routing: {
-            send: {
-                type: 'body',
-                property: 'alwaysOnline',
-            },
-        },
-    },
-    {
-        displayName: 'Read Messages',
-        name: 'readMessages',
-        type: 'boolean',
-        displayOptions: {
-            show: {
-                resource: ['instance'],
-                operation: ['update'],
-            },
-        },
-        default: false,
-        description: 'Whether to mark messages as read automatically',
-        routing: {
-            send: {
-                type: 'body',
-                property: 'readMessages',
+                property: 'name',
             },
         },
     },
@@ -238,8 +254,26 @@ export const instanceDescription: INodeProperties[] = [
         routing: {
             send: {
                 type: 'body',
-                property: 'webhookUrl',
-                value: '={{$parameter.webhookUrl}}'
+                property: 'webhook_url',
+            },
+        },
+    },
+    {
+        displayName: 'Sync Chat History',
+        name: 'syncHistory',
+        type: 'boolean',
+        displayOptions: {
+            show: {
+                resource: ['instance'],
+                operation: ['update'],
+            },
+        },
+        default: false,
+        description: 'Whether to sync chat history when connecting the instance',
+        routing: {
+            send: {
+                type: 'body',
+                property: 'sync_history',
             },
         },
     },

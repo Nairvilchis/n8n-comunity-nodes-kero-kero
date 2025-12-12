@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-kerokero-byevansdev",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "n8n community node for Kero-Kero WhatsApp API integration",
 	"main": "dist/package.json",
 	"license": "GPL-3.0",

@@ -108,6 +108,54 @@ export const messageDescription: INodeProperties[] = [
                     },
                 },
             },
+            {
+                name: 'Mark as Read',
+                value: 'markAsRead',
+                description: 'Mark a message as read',
+                action: 'Mark message as read',
+                routing: {
+                    request: {
+                        method: 'POST',
+                        url: '=/instances/{{$parameter["instanceName"]}}/messages/mark-read',
+                    },
+                },
+            },
+            {
+                name: 'React to Message',
+                value: 'react',
+                description: 'React to a message with an emoji',
+                action: 'React to message',
+                routing: {
+                    request: {
+                        method: 'POST',
+                        url: '=/instances/{{$parameter["instanceName"]}}/messages/react',
+                    },
+                },
+            },
+            {
+                name: 'Revoke Message',
+                value: 'revoke',
+                description: 'Delete a sent message',
+                action: 'Revoke message',
+                routing: {
+                    request: {
+                        method: 'POST',
+                        url: '=/instances/{{$parameter["instanceName"]}}/messages/revoke',
+                    },
+                },
+            },
+            {
+                name: 'Send Text With Typing',
+                value: 'sendTextWithTyping',
+                description: 'Send a text message with typing simulation',
+                action: 'Send text with typing',
+                routing: {
+                    request: {
+                        method: 'POST',
+                        url: '=/instances/{{$parameter["instanceName"]}}/messages/text-with-typing',
+                    },
+                },
+            },
         ],
         default: 'sendText',
     },
@@ -356,6 +404,26 @@ export const messageDescription: INodeProperties[] = [
             },
         },
     },
+    // Send Audio - Caption
+    {
+        displayName: 'Caption',
+        name: 'caption',
+        type: 'string',
+        displayOptions: {
+            show: {
+                resource: ['message'],
+                operation: ['sendAudio'],
+            },
+        },
+        default: '',
+        description: 'Optional caption for the audio',
+        routing: {
+            send: {
+                type: 'body',
+                property: 'caption',
+            },
+        },
+    },
     // Send Location - Latitude
     {
         displayName: 'Latitude',
@@ -565,6 +633,204 @@ export const messageDescription: INodeProperties[] = [
             send: {
                 type: 'body',
                 property: 'selectable_count',
+            },
+        },
+    },
+    // Enable Async Mode (for all send operations)
+    {
+        displayName: 'Enable Async Mode',
+        name: 'enableAsync',
+        type: 'boolean',
+        displayOptions: {
+            show: {
+                resource: ['message'],
+                operation: ['sendText', 'sendImage', 'sendVideo', 'sendAudio', 'sendDocument', 'sendLocation', 'sendContact', 'sendPoll', 'sendTextWithTyping'],
+            },
+        },
+        default: false,
+        description: 'Whether to send the message asynchronously (faster response, no immediate confirmation)',
+        routing: {
+            request: {
+                headers: {
+                    'X-Async': '={{ $parameter.enableAsync ? "true" : undefined }}',
+                },
+            },
+        },
+    },
+    // Send Text With Typing - Message
+    {
+        displayName: 'Message',
+        name: 'message',
+        type: 'string',
+        required: true,
+        typeOptions: {
+            rows: 4,
+        },
+        displayOptions: {
+            show: {
+                resource: ['message'],
+                operation: ['sendTextWithTyping'],
+            },
+        },
+        default: '',
+        description: 'The text message to send',
+        routing: {
+            send: {
+                type: 'body',
+                property: 'message',
+            },
+        },
+    },
+    // Send Text With Typing - Typing Duration
+    {
+        displayName: 'Typing Duration (ms)',
+        name: 'typingDuration',
+        type: 'number',
+        displayOptions: {
+            show: {
+                resource: ['message'],
+                operation: ['sendTextWithTyping'],
+            },
+        },
+        default: 0,
+        placeholder: '2000',
+        description: 'Duration of typing simulation in milliseconds (0 = auto-calculate based on message length)',
+        routing: {
+            send: {
+                type: 'body',
+                property: 'typing_duration',
+            },
+        },
+    },
+    // React to Message - Message ID
+    {
+        displayName: 'Message ID',
+        name: 'messageId',
+        type: 'string',
+        required: true,
+        displayOptions: {
+            show: {
+                resource: ['message'],
+                operation: ['react', 'revoke'],
+            },
+        },
+        default: '',
+        placeholder: '3EB0C2FE7A4B5C8D9E0F',
+        description: 'ID of the message to react to or revoke',
+        routing: {
+            send: {
+                type: 'body',
+                property: 'message_id',
+            },
+        },
+    },
+    // React to Message - Emoji
+    {
+        displayName: 'Emoji',
+        name: 'emoji',
+        type: 'string',
+        required: true,
+        displayOptions: {
+            show: {
+                resource: ['message'],
+                operation: ['react'],
+            },
+        },
+        default: '👍',
+        placeholder: '❤️',
+        description: 'Emoji to react with (leave empty to remove reaction)',
+        routing: {
+            send: {
+                type: 'body',
+                property: 'emoji',
+            },
+        },
+    },
+    // Mark as Read - Message ID
+    {
+        displayName: 'Message ID',
+        name: 'messageIdRead',
+        type: 'string',
+        required: true,
+        displayOptions: {
+            show: {
+                resource: ['message'],
+                operation: ['markAsRead'],
+            },
+        },
+        default: '',
+        placeholder: '3EB0C2FE7A4B5C8D9E0F',
+        description: 'ID of the message to mark as read',
+        routing: {
+            send: {
+                type: 'body',
+                property: 'message_id',
+            },
+        },
+    },
+    // Mark as Read - Chat JID
+    {
+        displayName: 'Chat JID',
+        name: 'chatJid',
+        type: 'string',
+        required: true,
+        displayOptions: {
+            show: {
+                resource: ['message'],
+                operation: ['markAsRead'],
+            },
+        },
+        default: '',
+        placeholder: '5215512345678@s.whatsapp.net',
+        description: 'JID of the chat',
+        routing: {
+            send: {
+                type: 'body',
+                property: 'chat_jid',
+            },
+        },
+    },
+    // Mark as Read - Sender JID
+    {
+        displayName: 'Sender JID',
+        name: 'senderJid',
+        type: 'string',
+        required: true,
+        displayOptions: {
+            show: {
+                resource: ['message'],
+                operation: ['markAsRead'],
+            },
+        },
+        default: '',
+        placeholder: '5215512345678@s.whatsapp.net',
+        description: 'JID of the sender',
+        routing: {
+            send: {
+                type: 'body',
+                property: 'sender_jid',
+            },
+        },
+    },
+    // Mark as Read - Timestamp
+    {
+        displayName: 'Timestamp',
+        name: 'timestamp',
+        type: 'number',
+        required: true,
+        displayOptions: {
+            show: {
+                resource: ['message'],
+                operation: ['markAsRead'],
+            },
+        },
+        default: 0,
+        placeholder: '1702345678',
+        description: 'Unix timestamp of the message',
+        routing: {
+            send: {
+                type: 'body',
+                property: 'timestamp',
             },
         },
     },

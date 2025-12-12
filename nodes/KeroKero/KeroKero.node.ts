@@ -6,15 +6,15 @@ import { getInstances } from './listSearch/getInstances';
 
 export class KeroKero implements INodeType {
     description: INodeTypeDescription = {
-        displayName: 'Kero-Kero',
-        name: 'kero-kero',
+        displayName: 'Kero-Kero Actions',
+        name: 'keroKero',
         icon: 'file:kerokero.svg',
         group: ['transform'],
         version: 1,
         subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
         description: 'Interact with Kero-Kero WhatsApp API',
         defaults: {
-            name: 'KeroKero',
+            name: 'Kero-Kero Actions',
         },
         usableAsTool: true,
         inputs: [NodeConnectionTypes.Main],
